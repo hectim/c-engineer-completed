@@ -21,8 +21,8 @@ public class SoundEngine {
     private long lastClipMTime = CLIP_MTIME_UNLOADED;
     private Clip clip = null;
 
-    private boolean loadClip(Sound sound) {
-        try (InputStream resourceStream = SoundEngine.class.getResourceAsStream(sound.getResourceName())) {
+    private boolean loadClip(String sound) {
+        try (InputStream resourceStream = SoundEngine.class.getResourceAsStream(sound)) {
             if (resourceStream == null) {
                 log.warn("Failed to load C Engineer sound " + sound + " as resource stream was null!");
             } else {
@@ -38,7 +38,7 @@ public class SoundEngine {
         return false;
     }
 
-    public void playClip(Sound sound) {
+    public void playClip(String sound) {
         long currentMTime = System.currentTimeMillis();
         if (clip == null || currentMTime != lastClipMTime || !clip.isOpen()) {
             if (clip != null && clip.isOpen()) {

@@ -15,13 +15,14 @@ import net.runelite.client.plugins.PluginDescriptor;
 import javax.inject.Inject;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 @Slf4j
 @PluginDescriptor(
-	name = "C Engineer: Completed",
-	description = "C Engineer announces when you complete an achievement",
-	tags = {"c engineer", "stats", "levels", "quests", "diary", "announce"}
+	name = "Gachi Flip Flops",
+	description = "GachiGasm every time you do something cool",
+	tags = {"gachi", "stats", "levels", "quests", "diary", "announce", "meme"}
 )
 
 public class CEngineerCompletedPlugin extends Plugin
@@ -39,6 +40,31 @@ public class CEngineerCompletedPlugin extends Plugin
 	@Inject
 	private CEngineerCompletedConfig config;
 
+	private final String[] deathSounds = new String[]{ "/rip-ears.wav", "/daxgasm.wav", "/fuckyou_N4ocxxs.wav", "/spank-3.wav"};
+	private final String[] longSounds = new String[]{ "/boi_SG958v4.wav", "/s-stands-for-suction-noot_6Id1unB.wav"};
+	private final String[] sounds = new String[]{
+			"/cumming.wav",
+			"/ok-gachihyper5.wav",
+			"/boy-next-door.wav",
+			"/daxgasm.wav",
+			"/deep-dark-fantasies.wav",
+			"/fuckyou_N4ocxxs.wav",
+			"/iam-cumming.wav",
+			"/suck.wav",
+			"/ok-gachihyper3.wav",
+			"/ok-gachihyper6.wav",
+			"/our-daddy-told-us-not-to-be-ashamed.wav" ,
+			"/spank-3.wav",
+			"/on.wav",
+			"/amazing.wav",
+			"/thats-power-son.wav"
+	};
+	private final Random rnd = new Random();
+
+	private String randomSound(String[] options) {
+		return options[rnd.nextInt(options.length)];
+	}
+
 	private final Varbits[] varbitsAchievementDiaries = {
 			Varbits.DIARY_ARDOUGNE_EASY, Varbits.DIARY_ARDOUGNE_MEDIUM, Varbits.DIARY_ARDOUGNE_HARD, Varbits.DIARY_ARDOUGNE_ELITE,
 			Varbits.DIARY_DESERT_EASY, Varbits.DIARY_DESERT_MEDIUM, Varbits.DIARY_DESERT_HARD, Varbits.DIARY_DESERT_ELITE,
@@ -55,7 +81,6 @@ public class CEngineerCompletedPlugin extends Plugin
 	private static final Pattern COLLECTION_LOG_ITEM_REGEX = Pattern.compile("New item added to your collection log:.*");
 	private static final Pattern COMBAT_TASK_REGEX = Pattern.compile("Congratulations, you've completed an? (?:\\w+) combat task:.*");
 	private static final Pattern QUEST_REGEX = Pattern.compile("Congratulations, you've completed a quest:.*");
-	private static final String C_ENGINEER = "C Engineer";
 
 	private final Map<Skill, Integer> oldExperience = new EnumMap<>(Skill.class);
 	private final Map<Varbits, Integer> oldAchievementDiaries = new EnumMap<>(Varbits.class);
@@ -74,6 +99,7 @@ public class CEngineerCompletedPlugin extends Plugin
 	{
 		oldExperience.clear();
 		oldAchievementDiaries.clear();
+		collectedGroundItems.clear();
 	}
 
 	private void setupOldMaps() {
@@ -146,20 +172,14 @@ public class CEngineerCompletedPlugin extends Plugin
 
 		// If we get here, 'skill' was leveled up!
 		if (config.announceLevelUp()) {
-			if (config.showChatMessages()) {
-				client.addChatMessage(ChatMessageType.PUBLICCHAT, C_ENGINEER, "Level up: completed.", null);
-			}
-			soundEngine.playClip(Sound.LEVEL_UP);
+			soundEngine.playClip(randomSound(sounds));
 		}
 	}
 
 	@Subscribe
 	public void onActorDeath(ActorDeath actorDeath) {
 		if (config.announceDeath() && actorDeath.getActor() == client.getLocalPlayer()) {
-			if (config.showChatMessages()) {
-				client.addChatMessage(ChatMessageType.PUBLICCHAT, C_ENGINEER, "Dying on my HCIM: completed.", null);
-			}
-			soundEngine.playClip(Sound.DEATH);
+			soundEngine.playClip(randomSound(deathSounds));
 		}
 	}
 
@@ -170,22 +190,11 @@ public class CEngineerCompletedPlugin extends Plugin
 		}
 
 		if (config.announceCollectionLog() && COLLECTION_LOG_ITEM_REGEX.matcher(chatMessage.getMessage()).matches()) {
-			if (config.showChatMessages()) {
-				client.addChatMessage(ChatMessageType.PUBLICCHAT, C_ENGINEER, "Collection log slot: completed.", null);
-			}
-			soundEngine.playClip(Sound.COLLECTION_LOG_SLOT);
-
+			soundEngine.playClip(randomSound(sounds));
 		} else if (config.announceQuestCompletion() && QUEST_REGEX.matcher(chatMessage.getMessage()).matches()) {
-			if (config.showChatMessages()) {
-				client.addChatMessage(ChatMessageType.PUBLICCHAT, C_ENGINEER, "Quest: completed.", null);
-			}
-			soundEngine.playClip(Sound.QUEST);
-
+			soundEngine.playClip(randomSound(sounds));
 		} else if (config.announceCombatAchievement() && COMBAT_TASK_REGEX.matcher(chatMessage.getMessage()).matches()) {
-			if (config.showChatMessages()) {
-				client.addChatMessage(ChatMessageType.PUBLICCHAT, C_ENGINEER, "Combat task: completed.", null);
-			}
-			soundEngine.playClip(Sound.COMBAT_TASK);
+			soundEngine.playClip(randomSound(sounds));
 		}
 	}
 
@@ -207,10 +216,7 @@ public class CEngineerCompletedPlugin extends Plugin
 			oldAchievementDiaries.put(diary, newValue);
 			if (config.announceAchievementDiary() && previousValue != -1 && previousValue != newValue && isAchievementDiaryCompleted(diary, newValue)) {
 				// value was not unknown (we know the previous value), value has changed, and value indicates diary is completed now
-				if (config.showChatMessages()) {
-					client.addChatMessage(ChatMessageType.PUBLICCHAT, C_ENGINEER, "Achievement diary: completed.", null);
-				}
-				soundEngine.playClip(Sound.ACHIEVEMENT_DIARY);
+				soundEngine.playClip(randomSound(sounds));
 			}
 		}
 	}
@@ -225,10 +231,22 @@ public class CEngineerCompletedPlugin extends Plugin
 				return value == 1;
 		}
 	}
+	@Subscribe
+	public void onOverheadTextChanged(OverheadTextChanged event) {
+		if (event.getOverheadText().toLowerCase().contains("death")) {
+			soundEngine.playClip(randomSound(deathSounds));
+		}
+		if (event.getOverheadText().toLowerCase().contains("lvl up")) {
+			soundEngine.playClip(randomSound(sounds));
+		}
+		if (event.getOverheadText().toLowerCase().contains("big")) {
+			soundEngine.playClip(randomSound(longSounds));
+		}
+	}
 
 	@Provides
 	CEngineerCompletedConfig provideConfig(ConfigManager configManager)
 	{
-		return configManager.getConfig(CEngineerCompletedConfig.class);
+		   return configManager.getConfig(CEngineerCompletedConfig.class);
 	}
 }

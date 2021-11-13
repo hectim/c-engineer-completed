@@ -79,13 +79,10 @@ public interface CEngineerCompletedConfig extends Config {
     }
 
     @ConfigItem(
-            keyName = "showChatMessages",
-            name = "Show fake public chat message (only you will see it)",
-            description = "Should C Engineer announce your achievements in game chat as well as audibly?",
+            keyName = "dropThreshold",
+            name = "Drop Threshold",
+            description = "Sets the drop threshold for gachi",
             position = 7
     )
-    default boolean showChatMessages() {
-        return true;
-    }
-
+    default int dropThreshold() { return 0; }
 }
