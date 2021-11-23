@@ -1,8 +1,7 @@
-# C Engineer: Completed [![Plugin Installs](http://img.shields.io/endpoint?url=https://i.pluginhub.info/shields/installs/plugin/c-engineer-completed)](https://runelite.net/plugin-hub/m0bile%20btw) [![Plugin Rank](http://img.shields.io/endpoint?url=https://i.pluginhub.info/shields/rank/plugin/c-engineer-completed)](https://runelite.net/plugin-hub)
-##### A plugin for [RuneLite](https://runelite.net/)
-C Engineer announces when you complete an achievement!
+# Gachi Flip Flops
 
-Huge thanks to [C Engineer](https://www.youtube.com/channel/UCUNoAjAgVHEHc6jrUr4XuWQ) for providing custom recorded audio for this plugin!
+##### A plugin for [RuneLite](https://runelite.net/)
+It's basically the same thing as the C Engineer Completed plugin but instead it GachiGasms every time you complete an achievement
 
 ### Announcement options include
 - level ups
@@ -12,13 +11,14 @@ Huge thanks to [C Engineer](https://www.youtube.com/channel/UCUNoAjAgVHEHc6jrUr4
 - combat achievements (per task, not per tier)
 - dying "on my hcim" (plays for any account type)
 
-and 'public' chat messages for each of the above (that only you can see)
+you can also type "lvl up", "death", or "big" to test the sounds
 
 ### Planned / Work In Progress expansions
 - none
 
 ### Potential future expansions
 - clue scroll completion
+- big drop notification (configurable threshold)
 
 ### Known Issues
 - PulseAudio on linux can just refuse to accept the audio formats used despite claiming to accept them :man_shrugging:
