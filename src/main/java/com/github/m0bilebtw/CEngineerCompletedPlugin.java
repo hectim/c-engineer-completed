@@ -99,7 +99,6 @@ public class CEngineerCompletedPlugin extends Plugin
 	{
 		oldExperience.clear();
 		oldAchievementDiaries.clear();
-		collectedGroundItems.clear();
 	}
 
 	private void setupOldMaps() {
