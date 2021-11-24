@@ -24,7 +24,7 @@ public class SoundEngine {
     private boolean loadClip(String sound) {
         try (InputStream resourceStream = SoundEngine.class.getResourceAsStream(sound)) {
             if (resourceStream == null) {
-                log.warn("Failed to load C Engineer sound " + sound + " as resource stream was null!");
+                log.warn("Failed to load sound " + sound + " as resource stream was null!");
             } else {
                 try (InputStream fileStream = new BufferedInputStream(resourceStream);
                      AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(fileStream)) {
@@ -33,7 +33,7 @@ public class SoundEngine {
                 return true;
             }
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            log.warn("Failed to load C Engineer sound " + sound, e);
+            log.warn("Failed to load sound " + sound, e);
         }
         return false;
     }
@@ -49,7 +49,7 @@ public class SoundEngine {
                 clip = AudioSystem.getClip();
             } catch (LineUnavailableException e) {
                 lastClipMTime = CLIP_MTIME_UNLOADED;
-                log.warn("Failed to get clip for C Engineer sound " + sound, e);
+                log.warn("Failed to get clip for sound " + sound, e);
                 return;
             }
 

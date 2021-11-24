@@ -41,7 +41,6 @@ public class CEngineerCompletedPlugin extends Plugin
 	private CEngineerCompletedConfig config;
 
 	private final String[] deathSounds = new String[]{ "/rip-ears.wav", "/daxgasm.wav", "/fuckyou_N4ocxxs.wav", "/spank-3.wav"};
-	private final String[] longSounds = new String[]{ "/boi_SG958v4.wav", "/s-stands-for-suction-noot_6Id1unB.wav"};
 	private final String[] sounds = new String[]{
 			"/cumming.wav",
 			"/ok-gachihyper5.wav",
@@ -237,9 +236,6 @@ public class CEngineerCompletedPlugin extends Plugin
 		}
 		if (event.getOverheadText().toLowerCase().contains("lvl up")) {
 			soundEngine.playClip(randomSound(sounds));
-		}
-		if (event.getOverheadText().toLowerCase().contains("big")) {
-			soundEngine.playClip(randomSound(longSounds));
 		}
 	}
 

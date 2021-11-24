@@ -77,12 +77,5 @@ public interface CEngineerCompletedConfig extends Config {
     default boolean announceDeath() {
         return true;
     }
-
-    @ConfigItem(
-            keyName = "dropThreshold",
-            name = "Drop Threshold",
-            description = "Sets the drop threshold for gachi",
-            position = 7
-    )
     default int dropThreshold() { return 0; }
 }

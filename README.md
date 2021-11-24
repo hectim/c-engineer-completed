@@ -11,7 +11,7 @@ It's basically the same thing as the C Engineer Completed plugin but instead it 
 - combat achievements (per task, not per tier)
 - dying "on my hcim" (plays for any account type)
 
-you can also type "lvl up", "death", or "big" to test the sounds
+you can also type "lvl up" or "death" to test the sounds
 
 ### Planned / Work In Progress expansions
 - none
@@ -19,6 +19,7 @@ you can also type "lvl up", "death", or "big" to test the sounds
 ### Potential future expansions
 - clue scroll completion
 - big drop notification (configurable threshold)
+- longer gachi sounds that are small enough to fit in the 10mb limit
 
 ### Known Issues
 - PulseAudio on linux can just refuse to accept the audio formats used despite claiming to accept them :man_shrugging:
